@@ -8,13 +8,14 @@
 - Free & Blazing Fast response
 - No Rate limits
 - 169 Currencies
-- Daily Updated
+- Hourly Updated
 
 
 **API URL:**
 
-`https://cdn.jsdelivr.net/gh/ismartcoding/currency-api/latest/data.json`
+`https://cdn.jsdelivr.net/gh/ismartcoding/currency-api/{date}/{hour}.json`
 
+Note: The `https://cdn.jsdelivr.net/gh/ismartcoding/currency-api@main/latest/data.json` will be cached by CDN for 7 days. So don't use this one.
 
 ### Any Issues: [Raise here](https://github.com/ismartcoding/currency-api/issues/new "Raise here")
 
