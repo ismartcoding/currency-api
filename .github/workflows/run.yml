@@ -1,0 +1,50 @@
+name: Fetch-Currencies
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # every day at midnight
+
+  workflow_dispatch:
+  
+env:
+  currlink: ${{ secrets.CURRLINK }}
+
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      # Partial clone
+      - name: Partial clone
+        shell: bash
+        run: |
+          REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+          git clone --filter=blob:none --no-checkout --depth 1  --sparse $REPO .
+          git sparse-checkout reapply --no-cone
+          git sparse-checkout add 'latest/*'
+          git checkout
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 'latest'
+
+      - name: Running the command
+        run: node run.js
+
+      - name: Rerun the command if previous failed
+        if: failure()
+        id: rerun
+        run: node run.js
+
+      - name: commit and push
+        if: ${{ success() || steps.rerun.conclusion == 'failure' }}
+        shell: bash
+        run: |
+          git config --global user.email github-actions@github.com
+          git config --global user.name github-actions
+          git pull
+          git add --sparse -A
+          git commit -m 'Update Currencies'
+          git push
