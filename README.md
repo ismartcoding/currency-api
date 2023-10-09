@@ -13,7 +13,7 @@
 
 **API URL:**
 
-`https://cdn.jsdelivr.net/gh/ismartcoding/currency-api@main/latest/data.json`
+`https://cdn.jsdelivr.net/gh/ismartcoding/currency-api/latest/data.json`
 
 
 ### Any Issues: [Raise here](https://github.com/ismartcoding/currency-api/issues/new "Raise here")
