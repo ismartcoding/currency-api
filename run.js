@@ -47,16 +47,10 @@ function fetchAndSaveCurrencyData() {
     response.on('end', () => {
       try {
         const jsonData = JSON.parse(data)
-        const quotes = {}
-        for (const key in jsonData.quotes) {
-          const currency = key.substring(3)
-          quotes[currency] = jsonData.quotes[key]
-        }
-
         const json = JSON.stringify({
           ts: jsonData.timestamp,
-          base: jsonData.source,
-          quotes,
+          base: jsonData.base,
+          quotes: jsonData.rates,
         })
 
         // Save the JSON data to the file with the hour in the filename
