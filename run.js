@@ -1,4 +1,4 @@
-const http = require('http')
+const http = require('https')
 const fs = require('fs')
 
 // Function to get the current date in the 'YYYY-MM-DD' format
